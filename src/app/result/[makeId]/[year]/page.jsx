@@ -1,23 +1,31 @@
 
 import { Suspense } from "react"
+
 async function fetchData(makeId, year){
     let data = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}?format=json`)
     let response = await data.json()
     return response.Results
 }
 
+
+
 export async function generateStaticParams(){
     const data = await fetch('https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json')
     let response = await data.json()
     let makes = response.Results
 
-    
+    const years = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015']
 
-    return makes.map((make) => ({
-        makeId: make.MakeId.toString(),
-        year: '2020'
+    const params = []
+    makes.forEach((make) => {
+        years.forEach((year) => {
+            params.push({
+                makeId: make.makeId,
+                year: year
+            })
+        })
     })
-)
+    return params
 }
 
 
