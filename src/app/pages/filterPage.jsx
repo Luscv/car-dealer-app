@@ -21,7 +21,7 @@ export const FilterPage = () => {
             <Link
                 href={`/result/${selectedVehicleMake}/${selectedYear}`}
                 
-                passHref
+              
             >
                 <button
                     className={` mt-7 p-2 bg-blue-500 text-white rounded ${!selectedVehicleMake || !selectedYear ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
